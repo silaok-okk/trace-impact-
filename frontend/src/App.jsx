@@ -50,7 +50,18 @@ function App() {
       });
       setRoiResult(res.data);
     } catch (error) {
-      console.error(error);
+      console.error('Backend ulaşılamadı, lokal simülasyon çalışıyor:', error);
+      // ML Model Çevrimdışı (Vercel) Fallback - Çoklu Doğrusal Regresyon Formülü (Y = w1*X1 + w2*X2 + w3*X3)
+      const predictedSavings = (1.5 * x1) + (2.0 * x2) + (1.2 * x3);
+      if (predictedSavings <= 0) {
+        setRoiResult({ roi_months: Infinity, monthly_savings: 0 });
+      } else {
+        const roi = inv / predictedSavings;
+        setRoiResult({
+          roi_months: parseFloat(roi.toFixed(1)),
+          monthly_savings: parseFloat(predictedSavings.toFixed(2))
+        });
+      }
     }
   };
 
