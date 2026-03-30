@@ -7,7 +7,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
     console.error('Error opening database', err.message);
   } else {
     console.log('Connected to the SQLite database.');
-    
+
     // Create tables
     db.run(`CREATE TABLE IF NOT EXISTS companies (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -30,12 +30,11 @@ const db = new sqlite3.Database(dbPath, (err) => {
         // Seed some data for the single company setup if empty.
         db.get('SELECT COUNT(*) as count FROM companies', (err, row) => {
           if (row.count === 0) {
-            db.run(\`INSERT INTO companies (name, investment) VALUES ('Acme Corp', 50000)\`);
+            db.run(`INSERT INTO companies (name, investment) VALUES ('Acme Corp', 50000)`);
           }
         });
       }
     });
   }
 });
-
 module.exports = db;
