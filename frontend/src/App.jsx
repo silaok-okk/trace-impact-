@@ -26,7 +26,18 @@ function App() {
   const fetchDashboard = async () => {
     try {
       const res = await axios.get(`${API_BASE}/dashboard`);
-      setMetrics(res.data.metrics);
+setMetrics({
+  total_waste: 120,
+  energy_savings: 60,
+  logistics_cost: 25,
+  regression_data: [
+    { month: 'Ocak', value: 1200 },
+    { month: 'Şubat', value: 1500 },
+    { month: 'Mart', value: 1800 },
+    { month: 'Nisan', value: 2100 }
+  ]
+});
+
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
       // Dummy fallback if backend hasn't ingested data yet
@@ -152,7 +163,7 @@ function App() {
                 <BarChart3 size={20} /> Kümülatif Tasarruf Eğilimi (ML Regresyon)
               </h3>
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={dummyChartData}>
+                <LineChart data={dummyData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                   <XAxis dataKey="name" stroke="#8b949e" />
                   <YAxis stroke="#8b949e" />
@@ -229,3 +240,11 @@ function App() {
   );
 }
 export default App;
+// Örnek regresyon verisi
+const dummyData = [
+  { month: 'Ocak', value: 1200 },
+  { month: 'Şubat', value: 1500 },
+  { month: 'Mart', value: 1800 },
+  { month: 'Nisan', value: 2100 }
+];
+// Grafiğe bu dummyData'yı gönder.
