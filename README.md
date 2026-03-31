@@ -5,7 +5,7 @@ Trace Impact, kurumsal atık yönetimi ve geri dönüşüm süreçlerini dijital
 ---
 
 ## 🛑 Problem
-*Bu kısma projenizin çözmeyi hedeflediği problemi yazabilirsiniz. Örn: Klasik atık yönetim süreçlerinde şirketlerin kayıpları, manuel hesaplamalar vb...*
+Hızla artan ESG beklentilerine rağmen; Kurumların sürdürülebilirlik verilerini (karbon, atık, enerji) **manuel, silolaşmış ve düzensiz takip etmesi**, bu yeşil yatırımların finansal geri dönüşünü **(ROI) ampirik olarak hesaplayamaması** ve yöneticilerin geleceğe dair veri odaklı **tahmin yapamaması.**
 
 ## 💡 Çözüm (Trace Impact)
 *Bu kısma projenizin getirdiği teknolojik çözümü yazabilirsiniz. Örn: Anlık atık okuma sağlayan sistemler, otomatik regresyon analizi ile ROI hesaplama vb...*
