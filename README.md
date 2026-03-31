@@ -26,6 +26,6 @@ Hızla artan ESG beklentilerine rağmen; Kurumların sürdürülebilirlik verile
 ### Canlı Demo (Vercel)
 https://trace-impact-sila-okk-app.vercel.app
 
-### Proje Sunum Videomuz 
+### Proje Sunum Videom
 [![Trace Impact Sunum Videosu](https://img.youtube.com/vi/3Gj9Ulbs86s/0.jpg)](https://youtu.be/3Gj9Ulbs86s?si=1s3cXvYPY8iO45OR)
 *[Videoyu izlemek için yukarıdaki görsele veya buraya tıklayabilirsiniz](https://youtu.be/3Gj9Ulbs86s?si=1s3cXvYPY8iO45OR)*
