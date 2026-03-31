@@ -9,53 +9,37 @@ const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [metrics, setMetrics] = useState(null);
-
+  
   // Simulation Form State
   const [inv, setInv] = useState(50000);
   const [x1, setX1] = useState(120); // waste
   const [x2, setX2] = useState(60);  // energy
   const [x3, setX3] = useState(25);  // logistics
   const [roiResult, setRoiResult] = useState(null);
-
+  
   // Dashboard Chart Data
   const [chartData, setChartData] = useState([]);
 
   useEffect(() => {
-    if (activeTab === 'dashboard') {
-      fetchDashboard();
-    }
-  }, [activeTab]);
+    // API olmadan Lokal (Offline) Senkronizasyon ve Matematiği Güncelle
+    const y_monthly = (1.5 * x1) + (2.0 * x2) + (1.2 * x3);
 
-  const fetchDashboard = async () => {
-    try {
-      const res = await axios.get(`${API_BASE}/dashboard`);
-      setMetrics(res.data.metrics);
-    } catch (error) {
-      console.error('API Hatası, Lokal Regresyon Grafiği Besleniyor:', error);
-      // Demo verileriyle Regresyon Matematiği
-      const base_x1 = 450;
-      const base_x2 = 210;
-      const base_x3 = 75;
-      const y_monthly = (1.5 * base_x1) + (2.0 * base_x2) + (1.2 * base_x3); // Y = 675 + 420 + 90 = 1185
+    setMetrics({
+      total_waste_kg: x1 * 6,       // 6 aylık kümülatif simülasyon
+      total_energy_kwh: x2 * 6,
+      total_logistics_saved: x3 * 6,
+      total_financial_savings: y_monthly * 6
+    });
 
-      setMetrics({
-        total_waste_kg: base_x1 * 6,
-        total_energy_kwh: base_x2 * 6,
-        total_logistics_saved: base_x3 * 6,
-        total_financial_savings: y_monthly * 6
-      });
-
-      // Dinamik Regresyon Grafik Verisi (6 Aylık Kümülatif Projeksiyon)
-      setChartData([
-        { name: 'Ocak', savings: y_monthly * 0.5 },
-        { name: 'Şubat', savings: y_monthly * 1.2 },
-        { name: 'Mart', savings: y_monthly * 2.1 },
-        { name: 'Nisan', savings: y_monthly * 3.4 },
-        { name: 'Mayıs', savings: y_monthly * 4.8 },
-        { name: 'Haziran', savings: y_monthly * 6.0 },
-      ]);
-    }
-  };
+    setChartData([
+      { name: 'Ocak', savings: parseFloat((y_monthly * 0.5).toFixed(2)) },
+      { name: 'Şubat', savings: parseFloat((y_monthly * 1.2).toFixed(2)) },
+      { name: 'Mart', savings: parseFloat((y_monthly * 2.1).toFixed(2)) },
+      { name: 'Nisan', savings: parseFloat((y_monthly * 3.4).toFixed(2)) },
+      { name: 'Mayıs', savings: parseFloat((y_monthly * 4.8).toFixed(2)) },
+      { name: 'Haziran', savings: parseFloat((y_monthly * 6.0).toFixed(2)) },
+    ]);
+  }, [x1, x2, x3]);
 
   const calculateROI = async (e) => {
     e.preventDefault();
@@ -92,13 +76,13 @@ function App() {
           <span>Trace Impact</span>
         </div>
         <nav className="nav-links">
-          <div
+          <div 
             className={`nav-item ${activeTab === 'dashboard' ? 'active' : ''}`}
             onClick={() => setActiveTab('dashboard')}
           >
             <LayoutDashboard size={20} /> Alan İzleme Paneli
           </div>
-          <div
+          <div 
             className={`nav-item ${activeTab === 'simulator' ? 'active' : ''}`}
             onClick={() => setActiveTab('simulator')}
           >
@@ -115,7 +99,7 @@ function App() {
               <h1>Genel Bakış</h1>
               <p>Kurumsal Atık Yönetimi ve Finansal Getiri Analizi</p>
             </header>
-
+            
             <div className="metrics-grid">
               <div className="glass-panel metric-card">
                 <div className="metric-icon"><Database size={24} /></div>
@@ -124,9 +108,9 @@ function App() {
                   {metrics?.total_waste_kg || 0} <span className="metric-unit">kg</span>
                 </div>
               </div>
-
+              
               <div className="glass-panel metric-card">
-                <div className="metric-icon" style={{ color: '#e3b341', background: 'rgba(227, 179, 65, 0.15)' }}>
+                <div className="metric-icon" style={{color: '#e3b341', background: 'rgba(227, 179, 65, 0.15)'}}>
                   <Zap size={24} />
                 </div>
                 <div className="metric-label">Enerji Tasarrufu (X₂)</div>
@@ -136,7 +120,7 @@ function App() {
               </div>
 
               <div className="glass-panel metric-card">
-                <div className="metric-icon" style={{ color: '#3b82f6', background: 'rgba(59, 130, 246, 0.15)' }}>
+                <div className="metric-icon" style={{color: '#3b82f6', background: 'rgba(59, 130, 246, 0.15)'}}>
                   <Truck size={24} />
                 </div>
                 <div className="metric-label">Lojistik Maliyet Düşüşü (X₃)</div>
@@ -145,30 +129,30 @@ function App() {
                 </div>
               </div>
 
-              <div className="glass-panel metric-card" style={{ borderLeft: '4px solid #2ea043' }}>
-                <div className="metric-icon" style={{ color: '#2ea043', background: 'rgba(46, 160, 67, 0.15)' }}>
+              <div className="glass-panel metric-card" style={{borderLeft: '4px solid #2ea043'}}>
+                <div className="metric-icon" style={{color: '#2ea043', background: 'rgba(46, 160, 67, 0.15)'}}>
                   <DollarSign size={24} />
                 </div>
                 <div className="metric-label">Tahmini Finansal Tasarruf (Y)</div>
-                <div className="metric-value" style={{ color: '#2ea043' }}>
-                  {parseFloat(metrics?.total_financial_savings || 0).toFixed(2)} <span className="metric-unit" style={{ color: '#2ea043' }}>$</span>
+                <div className="metric-value" style={{color: '#2ea043'}}>
+                  {parseFloat(metrics?.total_financial_savings || 0).toFixed(2)} <span className="metric-unit" style={{color: '#2ea043'}}>$</span>
                 </div>
               </div>
             </div>
 
-            <div className="glass-panel" style={{ padding: '24px', height: '400px' }}>
-              <h3 style={{ marginBottom: '24px', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <BarChart3 size={20} /> Kümülatif Tasarruf Eğilimi (ML Regresyon)
+            <div className="glass-panel" style={{padding: '24px', height: '400px'}}>
+              <h3 style={{marginBottom: '24px', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', gap: '8px'}}>
+                <BarChart3 size={20}/> Kümülatif Tasarruf Eğilimi (ML Regresyon)
               </h3>
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={dummyChartData}>
+                <LineChart data={chartData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                   <XAxis dataKey="name" stroke="#8b949e" />
                   <YAxis stroke="#8b949e" />
-                  <Tooltip
+                  <Tooltip 
                     contentStyle={{ backgroundColor: '#161b22', border: '1px solid #30363d', borderRadius: '8px' }}
                   />
-                  <Line type="monotone" dataKey="savings" stroke="#2ea043" strokeWidth={3} dot={{ r: 4, fill: '#2ea043' }} activeDot={{ r: 8 }} />
+                  <Line type="monotone" dataKey="savings" stroke="#2ea043" strokeWidth={3} dot={{r: 4, fill: '#2ea043'}} activeDot={{ r: 8 }} />
                 </LineChart>
               </ResponsiveContainer>
             </div>
@@ -177,35 +161,35 @@ function App() {
 
         {activeTab === 'simulator' && (
           <div className="anim-fade-in">
-            <header className="header">
+             <header className="header">
               <h1>ROI Simülatörü</h1>
               <p>Yatırım Maliyetlerinizi Akıllı Analitik Modeliyle Hesaplayın</p>
             </header>
 
             <div className="simulator-layout">
-              <div className="glass-panel" style={{ padding: '32px' }}>
+              <div className="glass-panel" style={{padding: '32px'}}>
                 <form onSubmit={calculateROI}>
                   <div className="form-group">
                     <label>Toplam Altyapı Yatırımı ($) </label>
-                    <input type="number" value={inv} onChange={e => setInv(Number(e.target.value))} required />
+                    <input type="number" value={inv} onChange={e=>setInv(Number(e.target.value))} required />
                   </div>
-
-                  <h4 style={{ marginTop: '24px', marginBottom: '16px', color: 'var(--accent-primary)' }}>Aylık Öngörülen Etkiler</h4>
-
+                  
+                  <h4 style={{marginTop: '24px', marginBottom: '16px', color: 'var(--accent-primary)'}}>Aylık Öngörülen Etkiler</h4>
+                  
                   <div className="form-group">
                     <label>Aylık Ayrıştırılacak Toplam Atık (kg)</label>
-                    <input type="number" value={x1} onChange={e => setX1(Number(e.target.value))} required />
+                    <input type="number" value={x1} onChange={e=>setX1(Number(e.target.value))} required />
                   </div>
                   <div className="form-group">
                     <label>Aylık Beklenen Enerji Tasarrufu (kWh)</label>
-                    <input type="number" value={x2} onChange={e => setX2(Number(e.target.value))} required />
+                    <input type="number" value={x2} onChange={e=>setX2(Number(e.target.value))} required />
                   </div>
                   <div className="form-group">
                     <label>Aylık Lojistik Operasyon Düşüşü ($)</label>
-                    <input type="number" value={x3} onChange={e => setX3(Number(e.target.value))} required />
+                    <input type="number" value={x3} onChange={e=>setX3(Number(e.target.value))} required />
                   </div>
 
-                  <button type="submit" className="btn-primary" style={{ marginTop: '24px' }}>
+                  <button type="submit" className="btn-primary" style={{marginTop: '24px'}}>
                     <Calculator size={20} /> Regresyon Modelini Çalıştır
                   </button>
                 </form>
@@ -219,13 +203,13 @@ function App() {
                       <div className="roi-months">{roiResult.roi_months !== null && roiResult.roi_months !== Infinity ? roiResult.roi_months : '∞'}</div>
                       <div className="roi-label">Ayda Amorti</div>
                     </div>
-                    <div style={{ textAlign: 'center', marginTop: '16px' }}>
-                      <p style={{ color: 'var(--text-secondary)' }}>Modelin Öngördüğü Aylık Tasarruf (Y)</p>
-                      <h2 style={{ color: 'var(--accent-primary)', fontSize: '32px' }}>{roiResult.monthly_savings} $</h2>
+                    <div style={{textAlign: 'center', marginTop: '16px'}}>
+                      <p style={{color: 'var(--text-secondary)'}}>Modelin Öngördüğü Aylık Tasarruf (Y)</p>
+                      <h2 style={{color: 'var(--accent-primary)', fontSize: '32px'}}>{roiResult.monthly_savings} $</h2>
                     </div>
                   </>
                 ) : (
-                  <p style={{ color: 'var(--text-secondary)', textAlign: 'center' }}>
+                  <p style={{color: 'var(--text-secondary)', textAlign: 'center'}}>
                     Sistemimize yatırım miktarını ve aylık hedefinizi girin; ekonometrik algoritmamız sizin için başa baş noktanızı (Break-even Point) hesaplasın.
                   </p>
                 )}
@@ -237,12 +221,5 @@ function App() {
     </div>
   );
 }
+
 export default App;
-// Örnek regresyon verisi
-const dummyData = [
-  { month: 'Ocak', value: 1200 },
-  { month: 'Şubat', value: 1500 },
-  { month: 'Mart', value: 1800 },
-  { month: 'Nisan', value: 2100 }
-];
-// Grafiğe bu dummyData'yı gönder.
