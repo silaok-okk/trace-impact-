@@ -1,10 +1,10 @@
-# 🌱 Trace Impact
+#  Trace Impact
 
 Trace Impact, kurumsal atık yönetimi ve geri dönüşüm süreçlerini dijitalleştiren, atık hacmi üzerinden firmaların sağlayacağı tahmini finansal kazanımı (ROI) makine öğrenmesi (Multivariable Linear Regression) modellemeleriyle hesaplayan bir dashboard projesidir.
 
 ---
 
-## 🛑 Problem
+##  Problem
 Hızla artan ESG beklentilerine rağmen; Kurumların sürdürülebilirlik verilerini (karbon, atık, enerji) **manuel, silolaşmış ve düzensiz takip etmesi**, bu yeşil yatırımların finansal geri dönüşünü **(ROI) ampirik olarak hesaplayamaması** ve yöneticilerin geleceğe dair veri odaklı **tahmin yapamaması.**
 
 ## 💡 Çözüm (Trace Impact)
@@ -26,6 +26,6 @@ Hızla artan ESG beklentilerine rağmen; Kurumların sürdürülebilirlik verile
 ### Canlı Demo (Vercel)
 https://trace-impact-sila-okk-app.vercel.app
 
-### Proje Sunum Videomuz 🎥
+### Proje Sunum Videomuz 
 [![Trace Impact Sunum Videosu](https://img.youtube.com/vi/3Gj9Ulbs86s/0.jpg)](https://youtu.be/3Gj9Ulbs86s?si=1s3cXvYPY8iO45OR)
 *[Videoyu izlemek için yukarıdaki görsele veya buraya tıklayabilirsiniz](https://youtu.be/3Gj9Ulbs86s?si=1s3cXvYPY8iO45OR)*
