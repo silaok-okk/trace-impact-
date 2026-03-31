@@ -7,7 +7,7 @@ Trace Impact, kurumsal atık yönetimi ve geri dönüşüm süreçlerini dijital
 ##  Problem
 Hızla artan ESG beklentilerine rağmen; Kurumların sürdürülebilirlik verilerini (karbon, atık, enerji) **manuel, silolaşmış ve düzensiz takip etmesi**, bu yeşil yatırımların finansal geri dönüşünü **(ROI) ampirik olarak hesaplayamaması** ve yöneticilerin geleceğe dair veri odaklı **tahmin yapamaması.**
 
-## 💡 Çözüm (Trace Impact)
+##  Çözüm (Trace Impact)
 **Trace-Impact;** ekonometrik regresyon modelleriyle gelecekteki çevresel etkileri tahmin eden, ROI Simülatörü ile yeşil yatırımların geri dönüş süresini hesaplayan ve tüm bu verileri profesyonel bir yapay zeka dashboard'unda sunan bir platformdur.
 
 ---
