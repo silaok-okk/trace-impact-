@@ -8,7 +8,7 @@ Trace Impact, kurumsal atık yönetimi ve geri dönüşüm süreçlerini dijital
 Hızla artan ESG beklentilerine rağmen; Kurumların sürdürülebilirlik verilerini (karbon, atık, enerji) **manuel, silolaşmış ve düzensiz takip etmesi**, bu yeşil yatırımların finansal geri dönüşünü **(ROI) ampirik olarak hesaplayamaması** ve yöneticilerin geleceğe dair veri odaklı **tahmin yapamaması.**
 
 ## 💡 Çözüm (Trace Impact)
-*Bu kısma projenizin getirdiği teknolojik çözümü yazabilirsiniz. Örn: Anlık atık okuma sağlayan sistemler, otomatik regresyon analizi ile ROI hesaplama vb...*
+**Trace Impact**, karmaşık sürdürülebilirlik verilerini (atık kapasitesi, enerji ve lojistik) tek bir modern kurumsal panelde toplayarak manuel takibi tamamen sonlandırır. İçerisinde barındırdığı **Çoklu Doğrusal Makine Öğrenmesi (ML Regression) Algoritması** sayesinde; şirketlerin yapmış olduğu yeşil altyapı yatırımlarının kaç ayda amorti edileceğini (ROI) ve kümülatif tasarruf projeksiyonlarını otomatik olarak hesaplayarak **yönetime anlık ve %100 veri odaklı karar alma gücü** sunar.
 
 ---
 
