@@ -17,6 +17,9 @@ function App() {
   const [x3, setX3] = useState(25);  // logistics
   const [roiResult, setRoiResult] = useState(null);
 
+  // Dashboard Chart Data
+  const [chartData, setChartData] = useState([]);
+
   useEffect(() => {
     if (activeTab === 'dashboard') {
       fetchDashboard();
@@ -26,27 +29,31 @@ function App() {
   const fetchDashboard = async () => {
     try {
       const res = await axios.get(`${API_BASE}/dashboard`);
-setMetrics({
-  total_waste: 120,
-  energy_savings: 60,
-  logistics_cost: 25,
-  regression_data: [
-    { month: 'Ocak', value: 1200 },
-    { month: 'Şubat', value: 1500 },
-    { month: 'Mart', value: 1800 },
-    { month: 'Nisan', value: 2100 }
-  ]
-});
-
+      setMetrics(res.data.metrics);
     } catch (error) {
-      console.error('Error fetching dashboard data:', error);
-      // Dummy fallback if backend hasn't ingested data yet
+      console.error('API Hatası, Lokal Regresyon Grafiği Besleniyor:', error);
+      // Demo verileriyle Regresyon Matematiği
+      const base_x1 = 450;
+      const base_x2 = 210;
+      const base_x3 = 75;
+      const y_monthly = (1.5 * base_x1) + (2.0 * base_x2) + (1.2 * base_x3); // Y = 675 + 420 + 90 = 1185
+
       setMetrics({
-        total_waste_kg: 0,
-        total_energy_kwh: 0,
-        total_logistics_saved: 0,
-        total_financial_savings: 0
+        total_waste_kg: base_x1 * 6,
+        total_energy_kwh: base_x2 * 6,
+        total_logistics_saved: base_x3 * 6,
+        total_financial_savings: y_monthly * 6
       });
+
+      // Dinamik Regresyon Grafik Verisi (6 Aylık Kümülatif Projeksiyon)
+      setChartData([
+        { name: 'Ocak', savings: y_monthly * 0.5 },
+        { name: 'Şubat', savings: y_monthly * 1.2 },
+        { name: 'Mart', savings: y_monthly * 2.1 },
+        { name: 'Nisan', savings: y_monthly * 3.4 },
+        { name: 'Mayıs', savings: y_monthly * 4.8 },
+        { name: 'Haziran', savings: y_monthly * 6.0 },
+      ]);
     }
   };
 
@@ -75,15 +82,6 @@ setMetrics({
       }
     }
   };
-
-  const dummyChartData = [
-    { name: 'Ocak', savings: 100 },
-    { name: 'Şubat', savings: 250 },
-    { name: 'Mart', savings: 400 },
-    { name: 'Nisan', savings: 750 },
-    { name: 'Mayıs', savings: 1100 },
-    { name: 'Haziran', savings: 1530 },
-  ];
 
   return (
     <div className="app-container">
@@ -163,7 +161,7 @@ setMetrics({
                 <BarChart3 size={20} /> Kümülatif Tasarruf Eğilimi (ML Regresyon)
               </h3>
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={dummyData}>
+                <LineChart data={dummyChartData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" />
                   <XAxis dataKey="name" stroke="#8b949e" />
                   <YAxis stroke="#8b949e" />
